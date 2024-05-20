@@ -65,7 +65,7 @@ def main():
                 if read_rules in ['yes', 'no']:
                     break
                 else:
-                    print("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
+                    centered_input("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
                     time.sleep(2)
                     clear_screen()
 
@@ -73,7 +73,7 @@ def main():
 
             if read_rules == 'yes':
                 display_rules()
-                print("\n\033[38;2;253;253;150mPress Enter to continue... \033[0m")
+                centered_input("\n\033[38;2;253;253;150mPress Enter to continue... \033[0m")
                 input()
         
             rules_shown = True
