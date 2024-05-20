@@ -47,10 +47,15 @@ def main():
     print(welcome_text.center(terminal_width))
     print(underline.center(terminal_width))
 
-    name = centered_input("Please enter your name: " + "\n")
-    clear_screen()
+    name = ""
+    while not name:
+        name = centered_input("Please enter your name: " + "\n")
+        if not name:
+            centered_input("\033[91mName cannot be empty. Please enter your name.\033[0m" + "\n")
+
+    clear_screen()         
     
-    greeting = f"Hello,{name}"
+    greeting = f"Hello, {name}"
     greeting_underline = '-' * len(greeting)
     
     print(greeting.center(terminal_width))
@@ -65,10 +70,8 @@ def main():
                 if read_rules in ['yes', 'no']:
                     break
                 else:
-                    centered_input("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
-                    time.sleep(2)
-                    clear_screen()
-
+                    centered_input("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m" + "\n")
+                    
             clear_screen()
 
             if read_rules == 'yes':
