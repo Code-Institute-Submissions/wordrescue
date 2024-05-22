@@ -4,6 +4,9 @@ import time
 import words_list
 import shutil
 
+def get_terminal_width() -> int:
+    return shutil.get_terminal_size().columns
+
 def display_banner():
     banner = r"""
 __        __            _   ____                           
@@ -12,7 +15,7 @@ __        __            _   ____
   \ V  V / (_) | | | (_| | |  _ <  __/\__ \ (__| |_| |  __/
    \_/\_/ \___/|_|  \__,_| |_| \_\___||___/\___|\__,_|\___|
    """
-    terminal_width = shutil.get_terminal_size().columns
+    terminal_width = get_terminal_width()
     banner_lines = banner.split('\n')
     centered_banner = '\n'.join(line.center(terminal_width) for line in banner_lines)
     print(centered_banner)
@@ -21,14 +24,14 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def centered_input(prompt: str, color_code: str = "") -> str:
-    terminal_width = shutil.get_terminal_size().columns
+    terminal_width = get_terminal_width()
     centered_prompt = prompt.center(terminal_width)
     print(color_code + centered_prompt + "\033[0m", end='', flush=True)
     user_input = input()
     return user_input.strip()
 
 def centered_print(text: str, color_code: str = ""):
-    terminal_width = shutil.get_terminal_size().columns
+    terminal_width = get_terminal_width()
     centered_text = text.center(terminal_width)
     print(color_code + centered_text + "\033[0m")
 
@@ -41,10 +44,11 @@ def display_rules():
         "3. If the suggested letter is not in the word, you lose an attempt.",
         "4. The game continues until you either guess the word or run out of attempts."
     ]
-    print(title)
-    print(underline)
+    centered_print(title)
+    centered_print(underline)
     for rule in rules:
-        print(rule + "\n")
+        centered_print(rule)
+    print("\n")
 
 def get_level() -> str:
     levels = {'1': 'easy', '2': 'medium', '3': 'hard'}
