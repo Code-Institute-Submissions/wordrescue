@@ -74,7 +74,7 @@ def display_current_state(hidden_word, attempts_left, guessed_letters):
     reset_text = "\033[0m"
     centered_print(f"Current word: {' '.join(hidden_word)}")
     centered_print(f"Attempts left: {green_text}{attempts_left}{reset_text}")
-    centered_print(f"Guessed letters: {red_text}{', '.join(sorted(guessed_letters))}{reset_text}" + "\n")
+    centered_print(f"Guessed letters: {red_text}{', '.join(sorted(guessed_letters))}{reset_text}")
 
 def update_hidden_word(word, hidden_word, guess):
     for i, letter in enumerate(word):
@@ -140,7 +140,7 @@ def main():
         while True:
             clear_screen()
             display_current_state(hidden_word, attempts_left, guessed_letters)
-            guess = centered_input("Guess a letter: ").upper()
+            guess = centered_input("Guess a letter: " + "\n").upper()
 
             if len(guess) != 1 or not guess.isalpha():
                 centered_print("Invalid input. Please guess a single letter.", "\033[91m")
