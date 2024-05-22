@@ -28,12 +28,16 @@ def centered_input(prompt, color_code=""):
     return user_input.strip()
 
 def display_rules():
+    title = "Rules"
+    underline = "-" * len(title)
     rules = [
         "1. You need to guess the word by suggesting letters within a certain number of guesses.",
         "2. If the suggested letter is in the word, it is revealed in its correct positions.",
         "3. If the suggested letter is not in the word, you lose an attempt.",
         "4. The game continues until you either guess the word or run out of attempts."
     ]
+    print(title.center(shutil.get_terminal_size().columns))
+    print(underline.center(shutil.get_terminal_size().columns))
     for rule in rules:
         print(rule.center(shutil.get_terminal_size().columns))
 
@@ -51,8 +55,7 @@ def main():
     while not name:
         name = centered_input("Please enter your name: " + "\n")
         if not name:
-            centered_input("\033[91mName cannot be empty. Please enter your name.\033[0m" + "\n")
-
+            print("\033[91m" + "Name cannot be empty. Please enter your name. \n".center(terminal_width) + "\033[0m")
     clear_screen()         
     
     greeting = f"Hello, {name}"
@@ -70,13 +73,13 @@ def main():
                 if read_rules in ['yes', 'no']:
                     break
                 else:
-                    centered_input("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m" + "\n")
+                    print("\033[91m" + "Invalid input. Please enter 'yes' or 'no'. \n".center(terminal_width) + "\033[0m")
                     
             clear_screen()
 
             if read_rules == 'yes':
                 display_rules()
-                centered_input("\n\033[38;2;253;253;150mPress Enter to continue... \033[0m")
+                print("\n\033[38;2;253;253;150mPress Enter to continue... \033[0m", end='', flush=True)
                 input()
         
             rules_shown = True
