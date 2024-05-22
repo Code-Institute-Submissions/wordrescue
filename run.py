@@ -41,10 +41,10 @@ def display_rules():
         "3. If the suggested letter is not in the word, you lose an attempt.",
         "4. The game continues until you either guess the word or run out of attempts."
     ]
-    centered_print(title)
+    print(title)
     print(underline)
     for rule in rules:
-        print(rule)
+        print(rule + "\n")
 
 def get_level() -> str:
     levels = {'1': 'easy', '2': 'medium', '3': 'hard'}
