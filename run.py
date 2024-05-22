@@ -20,14 +20,14 @@ __        __            _   ____
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def centered_input(prompt, color_code=""):
+def centered_input(prompt: str, color_code: str = "") -> str:
     terminal_width = shutil.get_terminal_size().columns
     centered_prompt = prompt.center(terminal_width)
     print(color_code + centered_prompt + "\033[0m", end='', flush=True)
     user_input = input()
     return user_input.strip()
 
-def centered_print(text, color_code=""):
+def centered_print(text: str, color_code: str = ""):
     terminal_width = shutil.get_terminal_size().columns
     centered_text = text.center(terminal_width)
     print(color_code + centered_text + "\033[0m")
@@ -46,7 +46,7 @@ def display_rules():
     for rule in rules:
         centered_print(rule)
 
-def get_level():
+def get_level() -> str:
     levels = {'1': 'easy', '2': 'medium', '3': 'hard'}
     while True:
         level = centered_input("Choose a level: 1. Easy  2. Medium  3. Hard: \n")
@@ -57,18 +57,18 @@ def get_level():
             time.sleep(1)
             clear_screen()
 
-def get_random_word(level):
+def get_random_word(level: str) -> str:
     words = words_list.get_words()
     return random.choice(words[level])
 
-def initialize_game_state(level):
+def initialize_game_state(level: str) -> tuple:
     word = get_random_word(level).upper()
     hidden_word = ['_' for _ in word]
     attempts = 6 if level == 'easy' else 4 if level == 'medium' else 3
     guessed_letters = set()
     return word, hidden_word, attempts, guessed_letters
 
-def display_current_state(hidden_word, attempts_left, guessed_letters):
+def display_current_state(hidden_word: list, attempts_left: int, guessed_letters: set):
     green_text = "\033[92m"
     red_text = "\033[91m"
     reset_text = "\033[0m"
@@ -76,12 +76,12 @@ def display_current_state(hidden_word, attempts_left, guessed_letters):
     centered_print(f"Attempts left: {green_text}{attempts_left}{reset_text}")
     centered_print(f"Guessed letters: {red_text}{', '.join(sorted(guessed_letters))}{reset_text}")
 
-def update_hidden_word(word, hidden_word, guess):
+def update_hidden_word(word: str, hidden_word: list, guess: str):
     for i, letter in enumerate(word):
         if letter == guess:
             hidden_word[i] = guess
 
-def play_again():
+def play_again() -> bool:
     while True:
         response = centered_input("Do you want to play again? (yes/no): \n").lower()
         if response in ['yes', 'no']:
@@ -93,7 +93,6 @@ def play_again():
 
 def main():
     display_banner()
-    terminal_width = shutil.get_terminal_size().columns
     
     welcome_text = "Welcome to Word Rescue game!"
     underline = '-' * len(welcome_text)
