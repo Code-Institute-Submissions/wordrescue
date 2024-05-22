@@ -80,6 +80,16 @@ def update_hidden_word(word, hidden_word, guess):
         if letter == guess:
             hidden_word[i] = guess
 
+def play_again():
+    while True:
+        response = centered_input("Do you want to play again? (yes/no): \n").lower()
+        if response in ['yes', 'no']:
+            return response == 'yes'
+        else:
+            print("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
+            time.sleep(2)
+            clear_screen()           
+
 def main():
     display_banner()
     terminal_width = shutil.get_terminal_size().columns
@@ -151,7 +161,6 @@ def main():
                 if '_' not in hidden_word:
                     clear_screen()
                     print("\033[92m\033[1mCongratulations! You've guessed the word!\033[0m")
-                    time.sleep(2)
                     break
             else:
                 attempts_left -= 1
@@ -159,9 +168,18 @@ def main():
                     clear_screen()
                     print("\033[91m\033[1mSorry, you've run out of attempts.\033[0m\n")
                     print(f"The word was: \033[92m\033[1m{word}\033[0m\n")
-                    time.sleep(2)
+                    time.sleep(1)
                     break
-        
+                 
+        if not play_again():
+            clear_screen()
+            custom_yellow = "\033[38;2;253;253;150m"
+            bold_text = "\033[1m"
+            reset_text = "\033[0m"
+            print(f"{bold_text}{custom_yellow}Thanks for playing! Goodbye.{reset_text}".center(shutil.get_terminal_size().columns))
+            break
+
+            
 
 if __name__ == "__main__":
     main()
