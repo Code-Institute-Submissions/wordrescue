@@ -177,10 +177,4 @@ def main():
         if not play_again():
             clear_screen()
             custom_yellow = "\033[38;2;253;253;150m"
-            bold_text = "\033[1m"
-            reset_text = "\033[0m"
-            centered_print(f"{bold_text}{custom_yellow}Thanks for playing! Goodbye.{reset_text}")
-            break
-
-if __name__ == "__main__":
-    main()
+        
