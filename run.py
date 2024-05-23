@@ -57,7 +57,7 @@ def get_level() -> str:
         if level in levels:
             return levels[level]
         else:
-            display_message("Invalid input. Please enter 1, 2, or 3.\n")
+            display_message("\033[91mInvalid input. Please enter 1, 2, or 3.\033[0m\n")
             time.sleep(1)
             clear_screen()
 
@@ -90,7 +90,7 @@ def play_again() -> bool:
         if response in ['yes', 'no']:
             return response == 'yes'
         else:
-            display_message("Invalid input. Please enter 'yes' or 'no'.")
+            display_message("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
             time.sleep(2)
             clear_screen()
 
@@ -107,7 +107,7 @@ def main():
     while not name:
         name = get_input("Please enter your name: " + "\n")
         if not name:
-            display_message("Name cannot be empty. Please enter your name.")
+            display_message("\033[91mName cannot be empty. Please enter your name.\033[0m")
     clear_screen()         
     
     greeting = f"Hello, {name}"
@@ -125,7 +125,7 @@ def main():
                 if read_rules in ['yes', 'no']:
                     break
                 else:
-                    display_message("Invalid input. Please enter 'yes' or 'no'.")
+                    display_message("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
                     
             clear_screen()
 
@@ -144,13 +144,13 @@ def main():
             guess = get_input("Guess a letter: " + "\n").upper()
 
             if len(guess) != 1 or not guess.isalpha():
-                display_message("Invalid input. Please guess a single letter.")
+                display_message("\033[91mInvalid input. Please guess a single letter.\033[0m")
                 time.sleep(2)
                 clear_screen()
                 continue
 
             if guess in guessed_letters:
-                display_message("You've already guessed that letter. Try a different one.")
+                display_message("\033[91mYou've already guessed that letter. Try a different one.\033[0m")
                 time.sleep(2)
                 clear_screen()
                 continue
@@ -161,7 +161,7 @@ def main():
                 update_hidden_word(word, hidden_word, guess)
                 if '_' not in hidden_word:
                     clear_screen()
-                    display_message("Congratulations! You've guessed the word!")
+                    display_message("\033[92mCongratulations! You've guessed the word!\033[0m")
                     break
             else:
                 attempts_left -= 1
