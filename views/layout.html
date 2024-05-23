@@ -11,7 +11,16 @@
     <title>Python Terminal by Code Institute</title>
     <style>
         body {
-            font-family: Arial;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: rgb(52, 40, 97);
+            background: linear-gradient(180deg, rgba(52, 40, 97, 1) 0%, rgba(73, 64, 144, 1) 100%);
+
         }
 
         /**
@@ -75,7 +84,7 @@
 
         .xterm .xterm-viewport {
             /* On OS X this is required in order for the scroll bar to appear fully opaque */
-            background-color: #000;
+            background-color: #181322;
             overflow-y: scroll;
             cursor: default;
             position: absolute;
@@ -158,16 +167,17 @@
         button {
             width: 200px;
             height: 40px;
-            background-color: #E84610;
-            border: 1px solid grey;
-            color: white;
+            background-color: #ccbf47;
+            border: 1px solid #d3bb07;
+            color: #271e78;
             text-transform: uppercase;
             margin: 10px;
+            font: bold 13px Arial;
             border-radius: 8px;
         }
     </style>
 </head>
 
-@{body}
+@body
 
 </html>
