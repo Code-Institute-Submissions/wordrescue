@@ -9,7 +9,8 @@ def get_terminal_width():
 
 def center_text(text: str) -> str:
     width = get_terminal_width()
-    return text.center(width)
+    lines = text.split('\n')
+    return '\n'.join(line.center(width) for line in lines)
 
 def display_banner():
     banner = r"""
@@ -19,8 +20,7 @@ __        __            _   ____
   \ V  V / (_) | | | (_| | |  _ <  __/\__ \ (__| |_| |  __/
    \_/\_/ \___/|_|  \__,_| |_| \_\___||___/\___|\__,_|\___|
    """
-    for line in banner.splitlines():
-        print(center_text(line))
+    print(center_text(banner))
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
