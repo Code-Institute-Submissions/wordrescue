@@ -42,9 +42,9 @@ def display_rules():
         "4. The game continues until you either guess the word or run out of attempts."
     ]
     centered_print(title)
-    print(underline)
+    centered_print(underline)
     for rule in rules:
-        print(rule)
+        centered_print(rule)
 
 def get_level() -> str:
     levels = {'1': 'easy', '2': 'medium', '3': 'hard'}
