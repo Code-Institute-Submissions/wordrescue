@@ -5,7 +5,10 @@
     <script>
         var term = new Terminal({
             cols: 80,
-            rows: 24
+            rows: 24,
+            theme: {
+                background: '#201c2e',
+            }
         });
         term.open(document.getElementById('terminal'));
 
