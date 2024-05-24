@@ -4,13 +4,16 @@ import time
 import words_list
 import shutil
 
+
 def get_terminal_width():
     return shutil.get_terminal_size().columns
+
 
 def center_text(text: str) -> str:
     width = get_terminal_width()
     lines = text.split('\n')
     return '\n'.join(line.center(width) for line in lines)
+
 
 def display_banner():
     banner = r"""
@@ -22,24 +25,32 @@ __        __            _   ____
    """
     print(center_text(banner))
 
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def get_input(prompt: str) -> str:
-    print(center_text(prompt), end='', flush=True)
+    centered_prompt = center_text(prompt)
+    print(centered_prompt, end='', flush=True)
     return input().strip()
+
 
 def display_message(message: str):
     print(center_text(message))
+
 
 def display_rules():
     title = "Rules"
     underline = "-" * len(title)
     rules = [
-        "1. You need to guess the word by suggesting letters within a certain number of guesses.",
-        "2. If the suggested letter is in the word, it is revealed in its correct positions.",
+        "1. You need to guess the word by suggesting letters within a certain",
+        "   number of guesses.",
+        "2. If the suggested letter is in the word, it is revealed in its",
+        "   correct positions.",
         "3. If the suggested letter is not in the word, you lose an attempt.",
-        "4. The game continues until you either guess the word or run out of attempts."
+        "4. The game continues until you either guess the word or run out of",
+        "   attempts."
     ]
     print(center_text(title))
     print(center_text(underline))
@@ -50,6 +61,7 @@ def display_rules():
     print(center_text(yellow_text))
     input()  # Wait for the user to press Enter
 
+
 def get_level() -> str:
     levels = {'1': 'easy', '2': 'medium', '3': 'hard'}
     while True:
@@ -57,13 +69,17 @@ def get_level() -> str:
         if level in levels:
             return levels[level]
         else:
-            display_message("\033[91mInvalid input. Please enter 1, 2, or 3.\033[0m\n")
+            display_message(
+                "\033[91mInvalid input. Please enter 1, 2, or 3.\033[0m\n"
+            )
             time.sleep(1)
             clear_screen()
+
 
 def get_random_word(level: str) -> str:
     words = words_list.get_words()
     return random.choice(words[level])
+
 
 def initialize_game_state(level: str) -> tuple:
     word = get_random_word(level).upper()
@@ -72,17 +88,24 @@ def initialize_game_state(level: str) -> tuple:
     guessed_letters = set()
     return word, hidden_word, attempts, guessed_letters
 
-def display_current_state(hidden_word: list, attempts_left: int, guessed_letters: set):
+
+def display_current_state(
+    hidden_word: list, attempts_left: int, guessed_letters: set
+):
     print(center_text(f"Current word: {' '.join(hidden_word)}"))
     green_attempts_left = f"\033[92m{attempts_left}\033[0m"
     print(center_text(f"Attempts left: {green_attempts_left}"))
-    red_guessed_letters = ', '.join([f"\033[91m{letter}\033[0m" for letter in sorted(guessed_letters)])
+    red_guessed_letters = ', '.join([
+        f"\033[91m{letter}\033[0m" for letter in sorted(guessed_letters)
+    ])
     print(center_text(f"Guessed letters: {red_guessed_letters}"))
+
 
 def update_hidden_word(word: str, hidden_word: list, guess: str):
     for i, letter in enumerate(word):
         if letter == guess:
             hidden_word[i] = guess
+
 
 def play_again() -> bool:
     while True:
@@ -90,16 +113,19 @@ def play_again() -> bool:
         if response in ['yes', 'no']:
             return response == 'yes'
         else:
-            display_message("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
+            display_message(
+                "\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m"
+            )
             time.sleep(2)
             clear_screen()
 
+
 def main():
     display_banner()
-    
+
     welcome_text = "Welcome to Word Rescue game!"
     underline = '-' * len(welcome_text)
-    
+
     print(center_text(welcome_text))
     print(center_text(underline))
 
@@ -107,12 +133,14 @@ def main():
     while not name:
         name = get_input("Please enter your name: " + "\n")
         if not name:
-            display_message("\033[91mName cannot be empty. Please enter your name.\033[0m")
-    clear_screen()         
-    
+            display_message(
+                "\033[91mName cannot be empty. Please enter your name.\033[0m"
+            )
+    clear_screen()
+
     greeting = f"Hello, {name}"
     greeting_underline = '-' * len(greeting)
-    
+
     print(center_text(greeting))
     print(center_text(greeting_underline))
 
@@ -121,22 +149,28 @@ def main():
     while True:
         if not rules_shown:
             while True:
-                read_rules = get_input("Do you want to read the rules? (yes/no): \n").lower()
+                read_rules = get_input(
+                    "Do you want to read the rules? (yes/no): \n"
+                ).lower()
                 if read_rules in ['yes', 'no']:
                     break
                 else:
-                    display_message("\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m")
-                    
+                    display_message(
+                        "\033[91mInvalid input. Please enter 'yes' or 'no'.\033[0m"
+                    )
+
             clear_screen()
 
             if read_rules == 'yes':
                 display_rules()
-        
+
             rules_shown = True
-        
+
         clear_screen()
         level = get_level()
-        word, hidden_word, attempts_left, guessed_letters = initialize_game_state(level)
+        word, hidden_word, attempts_left, guessed_letters = initialize_game_state(
+            level
+        )
 
         while True:
             clear_screen()
@@ -144,13 +178,17 @@ def main():
             guess = get_input("Guess a letter: " + "\n").upper()
 
             if len(guess) != 1 or not guess.isalpha():
-                display_message("\033[91mInvalid input. Please guess a single letter.\033[0m")
+                display_message(
+                    "\033[91mInvalid input. Please guess a single letter.\033[0m"
+                )
                 time.sleep(2)
                 clear_screen()
                 continue
 
             if guess in guessed_letters:
-                display_message("\033[91mYou've already guessed that letter. Try a different one.\033[0m")
+                display_message(
+                    "\033[91mYou've already guessed that letter. Try a different one.\033[0m"
+                )
                 time.sleep(2)
                 clear_screen()
                 continue
@@ -161,21 +199,28 @@ def main():
                 update_hidden_word(word, hidden_word, guess)
                 if '_' not in hidden_word:
                     clear_screen()
-                    display_message("\033[92mCongratulations! You've guessed the word!\033[0m")
+                    display_message(
+                        "\033[92mCongratulations! You've guessed the word!\033[0m"
+                    )
                     break
             else:
                 attempts_left -= 1
                 if attempts_left == 0:
                     clear_screen()
-                    display_message("\033[91mSorry, you've run out of attempts.\033[0m")
-                    display_message(f"The word was: \033[92m{word}\033[0m")
+                    display_message(
+                        "\033[91mSorry, you've run out of attempts.\033[0m"
+                    )
+                    display_message(
+                        f"The word was: \033[92m{word}\033[0m"
+                    )
                     time.sleep(1)
                     break
-                 
+
         if not play_again():
             clear_screen()
             display_message("\033[93mThanks for playing! Goodbye.\033[0m")
             break
+
 
 if __name__ == "__main__":
     main()
